@@ -12,7 +12,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var displayLabel: UILabel!
     
     var isFinishedTypingNum = true // 首次点击
-//    var isResultsTypingNum = false // 记录结果
+    private var calc = Calc()
+    
     private var displayVal : Double {
         get{
             guard let num = Double(displayLabel.text!) else {
@@ -30,14 +31,8 @@ class ViewController: UIViewController {
     @IBAction func calcButtonPressed(_ sender: UIButton) {
         isFinishedTypingNum = true
         // guard 方便调试 本质和 if let 一样
-        
-        
-        if sender.currentTitle == "+/-" {
-            displayVal *= -1
-        }else if sender.currentTitle == "AC" {
-            displayLabel.text = "0"
-        }else if sender.currentTitle == "%" {
-            displayVal *= 0.01
+        if let num = calc.calc(opreate: sender.currentTitle!, displayVal: displayVal) {
+            displayVal = num
         }
     }
     
